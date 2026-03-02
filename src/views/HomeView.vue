@@ -75,7 +75,6 @@ import api from "../lib/api";
 import { getAuth } from "../lib/auth";
 
 export default {
-  name: "HomeView",
   data() {
     return {
       auth: getAuth(),
