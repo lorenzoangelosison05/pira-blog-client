@@ -1,44 +1,44 @@
 <template>
-  <div class="container">
-    <div class="nav">
-      <div style="display:flex; align-items:center; gap:12px;">
-        <RouterLink class="brand" to="/">Simple Blog</RouterLink>
-</div>
-
-      <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:flex-end;">
-        <span v-if="auth.user" class="pill">
-          {{ auth.user.username }}
-          <span class="muted">·</span>
-          <span class="muted">{{ auth.user.role }}</span>
-        </span>
-
-        <RouterLink v-if="!auth.token" class="btn" to="/login">Login</RouterLink>
-        <RouterLink v-if="!auth.token" class="btn" to="/register">Register</RouterLink>
-        <button v-if="auth.token" class="btn" @click="logout">Logout</button>
+  <div>
+    <nav class="navbar">
+      <div class="nav-left">
+        <RouterLink to="/" class="brand">Simple Blog</RouterLink>
       </div>
+
+      <div class="nav-right" v-if="!auth.token">
+        <RouterLink to="/login" class="btn">Login</RouterLink>
+        <RouterLink to="/register" class="btn">Register</RouterLink>
+      </div>
+
+      <div class="nav-right" v-else>
+        <span class="user">
+          {{ auth.user?.username }}
+        </span>
+        <button class="btn" @click="logout">Logout</button>
+      </div>
+    </nav>
+
+    <div class="container">
+      <RouterView />
     </div>
-
-    <div style="height:14px;"></div>
-
-    <div class="page"><RouterView @auth-changed="refreshAuth" /></div>
   </div>
 </template>
 
 <script>
-import { getAuth, clearAuth } from "./lib/auth";
+import { getAuth } from "./lib/auth";
 
 export default {
   name: "App",
   data() {
-    return { auth: getAuth() };
+    return {
+      auth: getAuth()
+    };
   },
   methods: {
-    refreshAuth() {
-      this.auth = getAuth();
-    },
     logout() {
-      clearAuth();
-      this.refreshAuth();
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      this.auth = { token: null, user: null };
       this.$router.push("/");
     }
   }
