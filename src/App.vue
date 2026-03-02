@@ -1,22 +1,20 @@
 <template>
   <div>
-    <nav class="navbar">
-      <div class="nav-left">
-        <RouterLink to="/" class="brand">Simple Blog</RouterLink>
+    <div class="navbar">
+      <div class="brand">
+        <RouterLink to="/">Simple Blog</RouterLink>
       </div>
 
-      <div class="nav-right" v-if="!auth.token">
+      <div v-if="!auth.token">
         <RouterLink to="/login" class="btn">Login</RouterLink>
         <RouterLink to="/register" class="btn">Register</RouterLink>
       </div>
 
-      <div class="nav-right" v-else>
-        <span class="user">
-          {{ auth.user?.username }}
-        </span>
+      <div v-else>
+        <span class="user">{{ auth.user?.username }}</span>
         <button class="btn" @click="logout">Logout</button>
       </div>
-    </nav>
+    </div>
 
     <div class="container">
       <RouterView />
@@ -28,7 +26,6 @@
 import { getAuth } from "./lib/auth";
 
 export default {
-  name: "App",
   data() {
     return {
       auth: getAuth()
