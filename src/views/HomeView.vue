@@ -3,7 +3,7 @@
     <div class="col">
       <div class="card">
         <div class="h1">Posts</div>
-        <div class="muted">Public list of blog posts</div>
+       
 
         <div class="list">
           <div v-for="p in posts" :key="p._id" class="item">
@@ -30,7 +30,7 @@
     <div class="col">
       <div class="card">
         <div class="h1">Create Post</div>
-        <div class="muted">Logged-in users can create a post</div>
+       
 
         <div v-if="!auth.token" class="notice" style="margin-top:12px;">
           Please login to create a post.
