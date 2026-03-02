@@ -6,12 +6,19 @@ import RegisterView from "../views/RegisterView.vue";
 
 const routes = [
   { path: "/", name: "home", component: HomeView },
+
+
+  { path: "/posts", name: "posts", redirect: "/" },
+
   { path: "/post/:id", name: "post", component: PostView, props: true },
+
   { path: "/login", name: "login", component: LoginView },
   { path: "/register", name: "register", component: RegisterView }
 ];
 
-export default createRouter({
+const router = createRouter({
   history: createWebHistory(),
   routes
 });
+
+export default router;
