@@ -3,7 +3,7 @@
     <div class="nav">
       <div style="display:flex; align-items:center; gap:12px;">
         <RouterLink class="brand" to="/">Simple Blog</RouterLink>
-</div>
+      </div>
 
       <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:flex-end;">
         <span v-if="auth.user" class="pill">
@@ -20,7 +20,9 @@
 
     <div style="height:14px;"></div>
 
-    <div class="page"><RouterView @auth-changed="refreshAuth" /></div>
+    <div class="page">
+      <RouterView @auth-changed="refreshAuth" />
+    </div>
   </div>
 </template>
 
@@ -30,7 +32,9 @@ import { getAuth, clearAuth } from "./lib/auth";
 export default {
   name: "App",
   data() {
-    return { auth: getAuth() };
+    return {
+      auth: getAuth()
+    };
   },
   methods: {
     refreshAuth() {
@@ -38,8 +42,8 @@ export default {
     },
     logout() {
       clearAuth();
-      this.refreshAuth();
-      this.$router.push("/");
+      this.auth = { token: null, user: null };
+      this.$router.push("/login");
     }
   }
 };
